@@ -45,8 +45,10 @@ app.layout = html.Div(
 def load_output(n_clicks, psg_num):
     if n_clicks:
         dff = df[df["passenger_count"] == psg_num]
-        fig = px.histogram(dff, x="total_amount", title="NYC Green Taxi Rides").update_layout(title_x=0.5)
-        return fig
+        return px.histogram(
+            dff, x="total_amount", title="NYC Green Taxi Rides"
+        ).update_layout(title_x=0.5)
+
     return px.histogram(df.query(f"passenger_count=={psg_num}"), x="total_amount",
                         title="NYC Green Taxi Rides").update_layout(title_x=0.5)
 

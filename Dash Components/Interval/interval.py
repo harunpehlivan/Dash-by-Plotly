@@ -37,11 +37,10 @@ def update_graph(num):
     """update every 3 seconds"""
     if num==0:
         raise PreventUpdate
-    else:
-        y_data=num
-        fig=go.Figure(data=[go.Bar(x=[1, 2, 3, 4, 5, 6, 7, 8, 9], y=[y_data]*9)],
-                      layout=go.Layout(yaxis=dict(tickfont=dict(size=22)))
-        )
+    y_data=num
+    fig=go.Figure(data=[go.Bar(x=[1, 2, 3, 4, 5, 6, 7, 8, 9], y=[y_data]*9)],
+                  layout=go.Layout(yaxis=dict(tickfont=dict(size=22)))
+    )
 
     return (y_data,fig)
 

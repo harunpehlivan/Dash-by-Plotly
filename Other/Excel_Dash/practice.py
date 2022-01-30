@@ -35,8 +35,7 @@ app.layout=html.Div([
 def interactive_graphs(value_genre, value_platform):
     dff = df[df.Genre==value_genre]
     dff = dff[dff.Platform==value_platform]
-    fig = px.bar(data_frame=dff, x='Year', y='Japan Sales')
-    return fig
+    return px.bar(data_frame=dff, x='Year', y='Japan Sales')
 
 
 if __name__=='__main__':

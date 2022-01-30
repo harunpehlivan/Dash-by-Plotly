@@ -134,8 +134,7 @@ app.layout = html.Div([
 )
 def table_to_graph(row_data):
     df_table = df if row_data is None else pd.DataFrame(row_data)
-    fig = px.bar(df_table, x='Country', y='Machines')
-    return fig
+    return px.bar(df_table, x='Country', y='Machines')
 
 
 if __name__ == '__main__':

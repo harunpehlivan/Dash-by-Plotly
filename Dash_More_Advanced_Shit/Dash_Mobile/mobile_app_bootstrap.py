@@ -68,8 +68,7 @@ def update_graph1(chosen_condition):
 )
 def update_graph2(chosen_column):
     dff2 = df[chosen_column][:1000]
-    fig2 = px.histogram(dff2, x=chosen_column)
-    return fig2
+    return px.histogram(dff2, x=chosen_column)
 
 
 if __name__ == '__main__':

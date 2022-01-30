@@ -251,18 +251,20 @@ app.layout = dbc.Container(
 # top left bar graph ******************************************************
 @callback(Output("bar-col", "children"), Input("bar-data", "value"))
 def create_bar_graph(data_column):
-    bar_grpah = dcc.Graph(
+    return dcc.Graph(
         figure=px.bar(
-            dfc, x=data_column, y="Patients turned away", hover_data=["Activity Date"]
+            dfc,
+            x=data_column,
+            y="Patients turned away",
+            hover_data=["Activity Date"],
         ).update_xaxes(categoryorder="total descending")
     )
-    return bar_grpah
 
 
 # top right map ***********************************************************
 @callback(Output("map-conslt-col", "children"), Input("map1-conslt-data", "value"))
 def create_map(data_column):
-    map1 = dcc.Graph(
+    return dcc.Graph(
         config={"displayModeBar": False},
         figure=px.scatter_mapbox(
             dfc_gpd,
@@ -278,8 +280,6 @@ def create_map(data_column):
             mapbox_style="stamen-terrain", margin={"r": 0, "t": 0, "l": 0, "b": 0}
         ),
     )
-
-    return map1
 
 
 # hide and unhide Div with dropdown ***************************************
@@ -304,10 +304,10 @@ def create_dashboard4(che_value, act_value, hist_data):
     if che_value == "$10,000":
         new_y = 160
         increment = 1.4
-    if che_value == "$25,000":
+    elif che_value == "$25,000":
         new_y = 200
         increment = 2
-    if che_value == "$50,000":
+    elif che_value == "$50,000":
         new_y = 250
         increment = 4
 
@@ -360,26 +360,11 @@ def create_dashboard4(che_value, act_value, hist_data):
         df["colors"] = "blue"
         df.loc[df.Activity == act_value, "colors"] = "red"
 
-        if che_value == "$0k":
-            hist_graph = dcc.Graph(
-                figure=px.histogram(
-                    df,
-                    x="Activity",
-                    y="Length minutes",
-                    color="colors",
-                    histfunc=hist_data,
-                    labels={"Length minutes": "Shift time"},
-                )
-                .update_xaxes(categoryorder="category ascending")
-                .update_layout(showlegend=False)
-            )
-            return hist_graph
-
-        elif che_value != "$0k":
+        if che_value != "$0k":
             df.loc[df.Activity == act_value, "Length minutes"] = df.loc[
                 df.Activity == act_value, "Length minutes"
             ].apply(lambda x: x * increment)
-            hist_graph = dcc.Graph(
+        return dcc.Graph(
                 figure=px.histogram(
                     df,
                     x="Activity",
@@ -391,7 +376,6 @@ def create_dashboard4(che_value, act_value, hist_data):
                 .update_xaxes(categoryorder="category ascending")
                 .update_layout(showlegend=False)
             )
-            return hist_graph
 
 
 if __name__ == "__main__":

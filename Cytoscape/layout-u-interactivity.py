@@ -126,12 +126,11 @@ def update_layout(mouse_on_node, mouse_on_edge, tap_edge, tap_node, snd):
 def update_nodes(data):
     if data is None:
         return dash.no_update
-    else:
-        dff = df.copy()
-        dff.loc[dff.name == data['label'], 'color'] = "yellow"
-        fig = px.bar(dff, x='name', y='slaves_freed')
-        fig.update_traces(marker={'color': dff['color']})
-        return fig
+    dff = df.copy()
+    dff.loc[dff.name == data['label'], 'color'] = "yellow"
+    fig = px.bar(dff, x='name', y='slaves_freed')
+    fig.update_traces(marker={'color': dff['color']})
+    return fig
 
 
 if __name__ == '__main__':

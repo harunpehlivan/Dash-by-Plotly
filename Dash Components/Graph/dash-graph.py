@@ -56,9 +56,8 @@ def update_side_graph(hov_data, clk_data, slct_data, country_chosen):
         dff2 = df[df.country.isin(country_chosen)]
         dff2 = dff2[dff2.year == 1952]
         print(dff2)
-        fig2 = px.pie(data_frame=dff2, values='pop', names='country',
+        return px.pie(data_frame=dff2, values='pop', names='country',
                       title='Population for 1952')
-        return fig2
     else:
         print(f'hover data: {hov_data}')
         # print(hov_data['points'][0]['customdata'][0])
@@ -67,8 +66,12 @@ def update_side_graph(hov_data, clk_data, slct_data, country_chosen):
         dff2 = df[df.country.isin(country_chosen)]
         hov_year = hov_data['points'][0]['x']
         dff2 = dff2[dff2.year == hov_year]
-        fig2 = px.pie(data_frame=dff2, values='pop', names='country', title=f'Population for: {hov_year}')
-        return fig2
+        return px.pie(
+            data_frame=dff2,
+            values='pop',
+            names='country',
+            title=f'Population for: {hov_year}',
+        )
 
 
 if __name__ == '__main__':

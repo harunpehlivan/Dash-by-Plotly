@@ -127,7 +127,7 @@ def update_graph(timer):
 
     if day_end >= day_start:
         fig.update_traces(delta_increasing_color='green')
-    elif day_end < day_start:
+    else:
         fig.update_traces(delta_decreasing_color='red')
 
     return fig
@@ -161,7 +161,7 @@ def update_graph(timer):
 
     if day_end >= day_start:
         return fig.update_traces(fill='tozeroy',line={'color':'green'})
-    elif day_end < day_start:
+    else:
         return fig.update_traces(fill='tozeroy',
                              line={'color': 'red'})
 

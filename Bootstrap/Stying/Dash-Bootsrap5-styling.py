@@ -50,9 +50,8 @@ app.layout = dbc.Container([
     [Input("dropdown", "value")])
 def update_bar_chart(day):
     mask = df["day"] == day
-    fig = px.bar(df[mask], x="sex", y="total_bill", 
+    return px.bar(df[mask], x="sex", y="total_bill", 
                  color="smoker", barmode="group")
-    return fig
 
 
 if __name__ == "__main__":

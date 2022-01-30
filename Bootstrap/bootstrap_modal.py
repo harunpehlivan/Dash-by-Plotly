@@ -123,9 +123,7 @@ app.layout = html.Div([
     [State("popover", "is_open")],
 )
 def toggle_popover(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+    return not is_open if n else is_open
 
 
 @app.callback(
@@ -136,12 +134,11 @@ def toggle_popover(n, is_open):
 def update_graph_card(districts):
     if len(districts) == 0:
         return dash.no_update, alert
-    else:
-        df_filtered = df[df["District"].isin(districts)]
-        df_filtered = df_filtered.groupby(["Year", "District"])[['Graffiti']].median().reset_index()
-        fig = px.line(df_filtered, x="Year", y="Graffiti", color="District",
-                      labels={"Graffiti": "Graffiti incidents (avg)"}).update_traces(mode='lines+markers')
-        return fig, dash.no_update
+    df_filtered = df[df["District"].isin(districts)]
+    df_filtered = df_filtered.groupby(["Year", "District"])[['Graffiti']].median().reset_index()
+    fig = px.line(df_filtered, x="Year", y="Graffiti", color="District",
+                  labels={"Graffiti": "Graffiti incidents (avg)"}).update_traces(mode='lines+markers')
+    return fig, dash.no_update
 
 
 @app.callback(

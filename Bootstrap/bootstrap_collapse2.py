@@ -46,9 +46,7 @@ app.layout = html.Div([
     [State("collapse_pie", "is_open")],
 )
 def toggle_collapse(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+    return not is_open if n else is_open
 
 
 @app.callback(
@@ -57,9 +55,7 @@ def toggle_collapse(n, is_open):
     [State("collapse_hist", "is_open")],
 )
 def toggle_collapse(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+    return not is_open if n else is_open
 
 
 @app.callback(
@@ -68,9 +64,7 @@ def toggle_collapse(n, is_open):
     [State("collapse_strip", "is_open")],
 )
 def toggle_collapse(n, is_open):
-    if n:
-        return not is_open
-    return is_open
+    return not is_open if n else is_open
 
 
 if __name__ == "__main__":

@@ -37,8 +37,7 @@ app.layout = html.Div([
     Input('serverside-interval', 'n_intervals'),
 )
 def update_data(n_intervals):
-    data = df.iloc[n_intervals]['Sales per customer']
-    return data
+    return df.iloc[n_intervals]['Sales per customer']
 
 
 # Clientside callback

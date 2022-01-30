@@ -82,34 +82,39 @@ def populate_datatable(n_intervals):
     return [
         dash_table.DataTable(
             id='our-table',
-            columns=[{
-                         'name': str(x),
-                         'id': str(x),
-                         'deletable': False,
-                     } if x == 'Sales' or x == 'Phone'
-                     else {
-                'name': str(x),
-                'id': str(x),
-                'deletable': True,
-            }
-                     for x in df.columns],
+            columns=[
+                {
+                    'name': str(x),
+                    'id': str(x),
+                    'deletable': False,
+                }
+                if x in ['Sales', 'Phone']
+                else {
+                    'name': str(x),
+                    'id': str(x),
+                    'deletable': True,
+                }
+                for x in df.columns
+            ],
             data=df.to_dict('records'),
             editable=True,
             row_deletable=True,
             filter_action="native",
-            sort_action="native",  # give user capability to sort columns
-            sort_mode="single",  # sort across 'multi' or 'single' columns
-            page_action='none',  # render all of the data at once. No paging.
+            sort_action="native",
+            sort_mode="single",
+            page_action='none',
             style_table={'height': '300px', 'overflowY': 'auto'},
-            style_cell={'textAlign': 'left', 'minWidth': '100px', 'width': '100px', 'maxWidth': '100px'},
+            style_cell={
+                'textAlign': 'left',
+                'minWidth': '100px',
+                'width': '100px',
+                'maxWidth': '100px',
+            },
             style_cell_conditional=[
-                {
-                    'if': {'column_id': c},
-                    'textAlign': 'right'
-                } for c in ['Price', 'Sales']
-            ]
-
-        ),
+                {'if': {'column_id': c}, 'textAlign': 'right'}
+                for c in ['Price', 'Sales']
+            ],
+        )
     ]
 
 
@@ -151,9 +156,7 @@ def display_graph(data):
     pg_filtered = db.session.query(Product.Phone, Product.Sales)
     phone_c = [x.Phone for x in pg_filtered]
     sales_c = [x.Sales for x in pg_filtered]
-    fig = go.Figure([go.Bar(x=phone_c, y=sales_c)])
-
-    return fig
+    return go.Figure([go.Bar(x=phone_c, y=sales_c)])
 
 
 @app.callback(
@@ -178,10 +181,7 @@ def df_to_csv(n_clicks, n_intervals, dataset, s):
         return output, s
     elif input_triggered == 'interval' and s > 0:
         s = s - 1
-        if s > 0:
-            return output, s
-        else:
-            return no_output, s
+        return (output, s) if s > 0 else (no_output, s)
     elif s == 0:
         return no_output, s
 

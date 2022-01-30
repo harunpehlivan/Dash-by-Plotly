@@ -78,13 +78,11 @@ def update_graph(options_chosen):
     dff = df[df['Month Call Made'].isin(options_chosen)]
     print (dff['Month Call Made'].unique())
 
-    piechart=px.pie(
+    return px.pie(
             data_frame=dff,
             values='Amount of Animals',
             names='Month Call Made',
             )
-
-    return (piechart)
 
 #------------------------------------------------------------------------------
 if __name__ == '__main__':

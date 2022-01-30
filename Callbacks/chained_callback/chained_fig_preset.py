@@ -56,20 +56,23 @@ def set_cities_value(available_options):
 def update_grpah(selected_counties, selected_state):
     if len(selected_counties) == 0:
         return dash.no_update
-    else:
-        dff = df[(df.State==selected_state) & (df.County.isin(selected_counties))]
+    dff = df[(df.State==selected_state) & (df.County.isin(selected_counties))]
 
-        fig = px.scatter(dff, x='% without health insurance', y='% in fair or poor health',
-                         color='% adults graduated high school',
-                         trendline='ols',
-                         size='bubble_size',
-                         hover_name='County',
-                         # hover_data={'bubble_size':False},
-                         labels={'% adults graduated high school':'% graduated high school',
-                                 '% without health insurance':'% no health insurance',
-                                 '% in fair or poor health':'% poor health'}
-                         )
-        return fig
+    return px.scatter(
+        dff,
+        x='% without health insurance',
+        y='% in fair or poor health',
+        color='% adults graduated high school',
+        trendline='ols',
+        size='bubble_size',
+        hover_name='County',
+        # hover_data={'bubble_size':False},
+        labels={
+            '% adults graduated high school': '% graduated high school',
+            '% without health insurance': '% no health insurance',
+            '% in fair or poor health': '% poor health',
+        },
+    )
 
 
 if __name__ == '__main__':

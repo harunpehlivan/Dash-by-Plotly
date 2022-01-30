@@ -62,14 +62,13 @@ app.layout = html.Div([
 )
 def update_graph(dpdn_a, dpdn_b, dpdn_c):
     dff = df[:200]
-    if dpdn_a is None or dpdn_b is None or dpdn_c is None:
-        pie_fig = px.pie(dff, names=dff.index, values='Street_robbery', title='Street Robbery Berlin')\
-            .update_layout(showlegend=False, title_x=0.5).update_traces(textposition='inside',  textinfo='label+percent')
-        pie_fig2 = px.pie(dff, names=dff.index, values='Drugs', title='Drugs Berlin')\
-            .update_layout(showlegend=False, title_x=0.5).update_traces(textposition='inside', textinfo='label+percent')
-        return pie_fig, pie_fig2
-    else:
+    if dpdn_a is not None and dpdn_b is not None and dpdn_c is not None:
         raise dash.exceptions.PreventUpdate
+    pie_fig = px.pie(dff, names=dff.index, values='Street_robbery', title='Street Robbery Berlin')\
+        .update_layout(showlegend=False, title_x=0.5).update_traces(textposition='inside',  textinfo='label+percent')
+    pie_fig2 = px.pie(dff, names=dff.index, values='Drugs', title='Drugs Berlin')\
+        .update_layout(showlegend=False, title_x=0.5).update_traces(textposition='inside', textinfo='label+percent')
+    return pie_fig, pie_fig2
 
 
 if __name__ == "__main__":

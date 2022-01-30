@@ -60,34 +60,36 @@ def parse_contents(contents, filename, date):
             'There was an error processing this file.'
         ])
 
-    return html.Div([
-        html.H5(filename),
-        html.H6(datetime.datetime.fromtimestamp(date)),
-        html.P("Inset X axis data"),
-        dcc.Dropdown(id='xaxis-data',
-                     options=[{'label':x, 'value':x} for x in df.columns]),
-        html.P("Inset Y axis data"),
-        dcc.Dropdown(id='yaxis-data',
-                     options=[{'label':x, 'value':x} for x in df.columns]),
-        html.Button(id="submit-button", children="Create Graph"),
-        html.Hr(),
-
-        dash_table.DataTable(
-            data=df.to_dict('records'),
-            columns=[{'name': i, 'id': i} for i in df.columns],
-            page_size=15
-        ),
-        dcc.Store(id='stored-data', data=df.to_dict('records')),
-
-        html.Hr(),  # horizontal line
-
-        # For debugging, display the raw contents provided by the web browser
-        html.Div('Raw Content'),
-        html.Pre(contents[0:200] + '...', style={
-            'whiteSpace': 'pre-wrap',
-            'wordBreak': 'break-all'
-        })
-    ])
+    return html.Div(
+        [
+            html.H5(filename),
+            html.H6(datetime.datetime.fromtimestamp(date)),
+            html.P("Inset X axis data"),
+            dcc.Dropdown(
+                id='xaxis-data',
+                options=[{'label': x, 'value': x} for x in df.columns],
+            ),
+            html.P("Inset Y axis data"),
+            dcc.Dropdown(
+                id='yaxis-data',
+                options=[{'label': x, 'value': x} for x in df.columns],
+            ),
+            html.Button(id="submit-button", children="Create Graph"),
+            html.Hr(),
+            dash_table.DataTable(
+                data=df.to_dict('records'),
+                columns=[{'name': i, 'id': i} for i in df.columns],
+                page_size=15,
+            ),
+            dcc.Store(id='stored-data', data=df.to_dict('records')),
+            html.Hr(),
+            html.Div('Raw Content'),
+            html.Pre(
+                contents[:200] + '...',
+                style={'whiteSpace': 'pre-wrap', 'wordBreak': 'break-all'},
+            ),
+        ]
+    )
 
 
 @app.callback(Output('output-datatable', 'children'),
@@ -96,10 +98,9 @@ def parse_contents(contents, filename, date):
               State('upload-data', 'last_modified'))
 def update_output(list_of_contents, list_of_names, list_of_dates):
     if list_of_contents is not None:
-        children = [
+        return [
             parse_contents(c, n, d) for c, n, d in
             zip(list_of_contents, list_of_names, list_of_dates)]
-        return children
 
 
 @app.callback(Output('output-div', 'children'),
@@ -110,10 +111,9 @@ def update_output(list_of_contents, list_of_names, list_of_dates):
 def make_graphs(n, data, x_data, y_data):
     if n is None:
         return dash.no_update
-    else:
-        bar_fig = px.bar(data, x=x_data, y=y_data)
-        # print(data)
-        return dcc.Graph(figure=bar_fig)
+    bar_fig = px.bar(data, x=x_data, y=y_data)
+    # print(data)
+    return dcc.Graph(figure=bar_fig)
 
 
 

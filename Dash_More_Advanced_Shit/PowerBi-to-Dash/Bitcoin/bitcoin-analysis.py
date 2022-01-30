@@ -188,7 +188,7 @@ def update_purchase_amount(start_date, end_date, slider_v):
         start_date = df[df.number == slider_v[0]]['date'].values[0]
         end_date = df[df.number == slider_v[1]]['date'].values[0]
 
-    elif component_triggered == 'my-date-picker-start' or component_triggered == 'my-date-picker-end':
+    elif component_triggered in ['my-date-picker-start', 'my-date-picker-end']:
         num_start = df[df.date==start_date]['number'].values[0]
         num_end = df[df.date==end_date]['number'].values[0]
         slider_v = [num_start, num_end]

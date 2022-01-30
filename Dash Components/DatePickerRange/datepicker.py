@@ -57,13 +57,23 @@ def update_output(start_date, end_date):
     # print("Start date: " + start_date)
     # print("End date: " + end_date)
     dff = df.loc[start_date:end_date]
-    # print(dff[:5])
-
-    fig = px.density_mapbox(dff, lat='LATITUDE', lon='LONGITUDE', z='APP_SQ_FT', radius=13, zoom=10, height=650,
-                            center=dict(lat=40.751418, lon=-73.963878), mapbox_style="carto-positron",
-                            hover_data={'BUSINESS_NAME': True, 'LATITUDE': False, 'LONGITUDE': False,
-                                        'APP_SQ_FT': True})
-    return fig
+    return px.density_mapbox(
+        dff,
+        lat='LATITUDE',
+        lon='LONGITUDE',
+        z='APP_SQ_FT',
+        radius=13,
+        zoom=10,
+        height=650,
+        center=dict(lat=40.751418, lon=-73.963878),
+        mapbox_style="carto-positron",
+        hover_data={
+            'BUSINESS_NAME': True,
+            'LATITUDE': False,
+            'LONGITUDE': False,
+            'APP_SQ_FT': True,
+        },
+    )
 
 
 if __name__ == '__main__':

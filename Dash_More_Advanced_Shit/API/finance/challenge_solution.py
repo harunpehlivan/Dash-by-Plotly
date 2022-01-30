@@ -48,14 +48,13 @@ def update_graph(n):
     df = df[df['indicator']!='volume']
     print(df[:15])
 
-    line_chart = px.line(
+    return px.line(
                     data_frame=df,
                     x='date',
                     y='rate',
                     color='indicator',
                     title="Stock: {}".format(ttm_meta_data['2. Symbol'])
                  )
-    return (line_chart)
 
 #-------------------------------------------------------------------------------
 if __name__ == '__main__':

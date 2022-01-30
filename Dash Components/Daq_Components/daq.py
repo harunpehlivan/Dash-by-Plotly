@@ -92,10 +92,7 @@ def update_g(n_intervals):
     Input("my-toggle-switch", "value"),
 )
 def update_g(toggle):
-    if toggle:
-        return "gallons"
-    else:
-        return "liters"
+    return "gallons" if toggle else "liters"
 
 
 if __name__ == "__main__":

@@ -86,10 +86,17 @@ app.layout = html.Div([
     [Input("user_choice", "value")]
 )
 def update_graph(value):
-    fig = px.scatter(df.query("year=={}".format(str(value))), x="gdpPercap", y="lifeExp",
-                     size="pop", color="continent", title=str(value),
-                     hover_name="country", log_x=True, size_max=60).update_layout(showlegend=True, title_x=0.5)
-    return fig
+    return px.scatter(
+        df.query("year=={}".format(str(value))),
+        x="gdpPercap",
+        y="lifeExp",
+        size="pop",
+        color="continent",
+        title=str(value),
+        hover_name="country",
+        log_x=True,
+        size_max=60,
+    ).update_layout(showlegend=True, title_x=0.5)
 
 
 if __name__ == "__main__":

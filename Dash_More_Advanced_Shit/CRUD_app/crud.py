@@ -102,9 +102,7 @@ def add_row(n_clicks, rows, columns):
     [Input('our-table', 'data')])
 def display_graph(data):
     df_fig = pd.DataFrame(data)
-    # print(df_fig)
-    fig = px.bar(df_fig, x='Product', y='Sales')
-    return fig
+    return px.bar(df_fig, x='Product', y='Sales')
 
 
 @app.callback(
@@ -129,10 +127,7 @@ def df_to_csv(n_clicks, n_intervals, dataset, s):
         return output, s
     elif input_triggered == 'interval' and s > 0:
         s = s-1
-        if s > 0:
-            return output, s
-        else:
-            return no_output, s
+        return (output, s) if s > 0 else (no_output, s)
     elif s == 0:
         return no_output, s
 

@@ -37,25 +37,23 @@ app.layout = html.Div([
     [Input(component_id='submit_button', component_property='n_clicks')],
     [State(component_id='input_state', component_property='value')]
 )
-
 def update_output(num_clicks, val_selected):
     if val_selected is None:
         raise PreventUpdate
-    else:
-        df = px.data.gapminder().query("year=={}".format(val_selected))
-        # print(df[:3])
+    df = px.data.gapminder().query("year=={}".format(val_selected))
+    # print(df[:3])
 
-        fig = px.choropleth(df, locations="iso_alpha",
-                            color="lifeExp",
-                            hover_name="country",
-                            projection='natural earth',
-                            title='Life Expectancy by Year',
-                            color_continuous_scale=px.colors.sequential.Plasma)
+    fig = px.choropleth(df, locations="iso_alpha",
+                        color="lifeExp",
+                        hover_name="country",
+                        projection='natural earth',
+                        title='Life Expectancy by Year',
+                        color_continuous_scale=px.colors.sequential.Plasma)
 
-        fig.update_layout(title=dict(font=dict(size=28),x=0.5,xanchor='center'),
-                          margin=dict(l=60, r=60, t=50, b=50))
+    fig.update_layout(title=dict(font=dict(size=28),x=0.5,xanchor='center'),
+                      margin=dict(l=60, r=60, t=50, b=50))
 
-        return ('The input value was "{}" and the button has been \
+    return ('The input value was "{}" and the button has been \
                 clicked {} times'.format(val_selected, num_clicks), fig)
 
 if __name__ == '__main__':

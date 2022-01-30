@@ -72,17 +72,15 @@ def update_nodes(data):
     if data is None:
         dff = df.copy()
         dff.loc[dff.name == 'Program Officer (Sojourner)', 'color'] = "yellow"
-        fig = px.bar(dff, x='name', y='slaves_freed')
-        fig.update_traces(marker={'color': dff['color']})
-        return fig
     else:
         print(data)
         dff = df.copy()
         dff.loc[dff.name == data['label'], 'color'] = "yellow"
         print(dff)
-        fig = px.bar(dff, x='name', y='slaves_freed')
-        fig.update_traces(marker={'color': dff['color']})
-        return fig
+
+    fig = px.bar(dff, x='name', y='slaves_freed')
+    fig.update_traces(marker={'color': dff['color']})
+    return fig
 
 
 if __name__ == '__main__':

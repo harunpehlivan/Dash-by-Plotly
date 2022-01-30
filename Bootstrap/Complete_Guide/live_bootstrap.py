@@ -108,8 +108,7 @@ app.layout = dbc.Container([
 )
 def update_graph(stock_slctd):
     dff = df[df['Symbols']==stock_slctd]
-    figln = px.line(dff, x='Date', y='High')
-    return figln
+    return px.line(dff, x='Date', y='High')
 
 
 # Line chart - multiple
@@ -119,8 +118,7 @@ def update_graph(stock_slctd):
 )
 def update_graph(stock_slctd):
     dff = df[df['Symbols'].isin(stock_slctd)]
-    figln2 = px.line(dff, x='Date', y='Open', color='Symbols')
-    return figln2
+    return px.line(dff, x='Date', y='Open', color='Symbols')
 
 
 # Histogram
@@ -131,8 +129,7 @@ def update_graph(stock_slctd):
 def update_graph(stock_slctd):
     dff = df[df['Symbols'].isin(stock_slctd)]
     dff = dff[dff['Date']=='2020-12-03']
-    fighist = px.histogram(dff, x='Symbols', y='Close')
-    return fighist
+    return px.histogram(dff, x='Symbols', y='Close')
 
 
 if __name__=='__main__':

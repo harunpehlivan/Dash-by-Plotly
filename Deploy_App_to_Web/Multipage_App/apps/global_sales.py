@@ -51,8 +51,7 @@ def display_value(pymnt_chosen, country_chosen):
                     (dfg["Type"] == pymnt_chosen)]
     dfg_fltrd = dfg_fltrd.groupby(["Customer State"])[['Sales']].sum()
     dfg_fltrd.reset_index(inplace=True)
-    fig = px.choropleth(dfg_fltrd, locations="Customer State",
+    return px.choropleth(dfg_fltrd, locations="Customer State",
                         locationmode="USA-states", color="Sales",
                         scope="usa")
-    return fig
 

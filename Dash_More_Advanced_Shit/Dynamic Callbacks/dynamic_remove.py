@@ -109,10 +109,9 @@ def update_graph(s_value, ctg_value, num_value, chart_choice):
     elif chart_choice == 'line':
         if len(s_value) == 0:
             return {}
-        else:
-            dff = dff.groupby([ctg_value, 'year'], as_index=False)[['detenues', 'under_trial', 'convicts', 'others']].sum()
-            fig = px.line(dff, x='year', y=num_value, color=ctg_value)
-            return fig
+        dff = dff.groupby([ctg_value, 'year'], as_index=False)[['detenues', 'under_trial', 'convicts', 'others']].sum()
+        fig = px.line(dff, x='year', y=num_value, color=ctg_value)
+        return fig
     elif chart_choice == 'pie':
         fig = px.pie(dff, names=ctg_value, values=num_value)
         return fig

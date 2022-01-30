@@ -68,8 +68,13 @@ def display_trend(timer):
         id='datatable-trends',
         columns=[
             {"name": i, "id": i}
-            if i == "trending" or i == "volume"
-            else {"name": i, "id": i, 'type': 'text', "presentation":"markdown"}
+            if i in ["trending", "volume"]
+            else {
+                "name": i,
+                "id": i,
+                'type': 'text',
+                "presentation": "markdown",
+            }
             for i in df.columns
         ],
         data=df.to_dict('records'),
@@ -80,7 +85,9 @@ def display_trend(timer):
             'whiteSpace': 'normal',
             'height': 'auto',
             'overflow': 'hidden',
-            'minWidth': '50px', 'width': '80px', 'maxWidth': '120px',
+            'minWidth': '50px',
+            'width': '80px',
+            'maxWidth': '120px',
         },
     )
 
@@ -91,15 +98,11 @@ def display_trend(timer):
     Input(component_id="timer", component_property="n_intervals"),
 )
 def display_trend(timer):
-    liked_twt = []
     # get tweets metadata that were liked by @Plotlygraphs
     x = api.GetFavorites(screen_name='plotlygraphs', count=100, return_json=False)
-    # extract the tweet text, from the metadata, into a list
-    for status in x:
-        liked_twt.append(status.text)
-
+    liked_twt = [status.text for status in x]
     # join all tweet text into one string
-    alltweets = " ".join(tweet for tweet in liked_twt)
+    alltweets = " ".join(liked_twt)
 
     # generate wordcloud from all tweets
     my_wordcloud = WordCloud(

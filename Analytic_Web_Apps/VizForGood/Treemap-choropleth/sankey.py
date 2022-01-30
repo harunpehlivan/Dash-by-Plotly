@@ -60,14 +60,11 @@ def update_modal(data):
     # if black frame of treemap, don't update
     if data is None:
         return dash.no_update
-    # if no currentpath or country is chosen, don't update
     elif data['points'][0].get('currentPath') is None \
             or data['points'][0]['currentPath'] == '/':
         return dash.no_update
-    # if axis of intervention is chosen (country is parent), don't update
     elif data['points'][0]['parent'] in df.Country.unique():
         return dash.no_update
-    # if Region is chosen, build table and map
     else:
         label_slct = data['points'][0]['label']
         parent_slct = data['points'][0]['parent']
@@ -91,12 +88,7 @@ def update_modal(data):
 
         # create the table
         table_header = [html.Thead(html.Tr([html.Th(label_slct)]))]
-        rows=[]
-        for x in dff["notes"]:
-            if pd.isnull(x):
-                continue
-            rows.append(html.Tr([html.Td(x)]))
-
+        rows = [html.Tr([html.Td(x)]) for x in dff["notes"] if not pd.isnull(x)]
         table_body = [html.Tbody(rows)]
 
         return fig, dbc.Table(table_header + table_body, bordered=True)

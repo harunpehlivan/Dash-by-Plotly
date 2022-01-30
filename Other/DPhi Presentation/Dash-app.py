@@ -45,14 +45,13 @@ def update_graph(gender_chosen):
     dff = dff.groupby(["Victim's race", "Geography"])[
         ["Victim's age"]].mean()
     dff = dff.reset_index()
-    fig = px.bar(
+    return px.bar(
         data_frame=dff,
         x="Victim's race",
         y="Victim's age",
         color="Geography",
         barmode="group"
     )
-    return fig  # gender_chosen
 
 
 if __name__=='__main__':

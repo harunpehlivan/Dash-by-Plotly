@@ -41,9 +41,8 @@ app.layout = html.Div([
 )
 def update_store_data(shipping, text):
     dff = df[df['Shipping Mode'] == shipping]
-    fig = px.histogram(dff, x="Customer Segment", y="Sales",
+    return px.histogram(dff, x="Customer Segment", y="Sales",
                  color='Department Name', title=text)
-    return fig
 
 
 

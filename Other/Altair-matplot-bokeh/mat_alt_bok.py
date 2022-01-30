@@ -48,8 +48,6 @@ def plot_data(selected_ycol):
         x='Displacement',
         y=selected_ycol,
         tooltip=selected_ycol).interactive()
-    html_altair = chart.to_html()
-
     # Matplotlib graphing library------------------------------------------
     # colvalue = cars[selected_ycol]
     # fig, ax = plt.subplots()
@@ -65,7 +63,7 @@ def plot_data(selected_ycol):
     # plot.scatter(x='Displacement', y=selected_ycol, source=sourcedata)
     # html_bokeh = file_html(plot, CDN)
 
-    return html_altair
+    return chart.to_html()
 
 if __name__ == '__main__':
     app.run_server(debug=True, port=8001)

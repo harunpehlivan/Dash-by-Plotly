@@ -44,17 +44,14 @@ app.layout = html.Div([
     Output(component_id='the_graph', component_property='figure'),
     [Input(component_id='my_dropdown', component_property='value')]
 )
-
 def update_graph(my_dropdown):
     dff = df
 
-    piechart=px.pie(
+    return px.pie(
             data_frame=dff,
             names=my_dropdown,
             hole=.3,
             )
-
-    return (piechart)
 
 
 if __name__ == '__main__':

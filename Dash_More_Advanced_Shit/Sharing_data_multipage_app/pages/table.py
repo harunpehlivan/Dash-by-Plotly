@@ -22,9 +22,8 @@ def populate_checklist(data, day):
         return html.H1("Please choose a day on bargraph page!")
     dff = pd.DataFrame(data)
     dff = dff[dff["day"] == day]
-    my_table = dash_table.DataTable(
+    return dash_table.DataTable(
                     id='table',
                     columns=[{"name": i, "id": i} for i in dff.columns],
                     data=dff.to_dict('records'),
                 )
-    return my_table

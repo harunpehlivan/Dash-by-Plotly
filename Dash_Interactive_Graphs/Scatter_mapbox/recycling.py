@@ -137,13 +137,12 @@ def update_figure(chosen_boro,chosen_recycling):
 def display_click_data(clickData):
     if clickData is None:
         return 'Click on any bubble'
+    # print (clickData)
+    the_link=clickData['points'][0]['customdata']
+    if the_link is None:
+        return 'No Website Available'
     else:
-        # print (clickData)
-        the_link=clickData['points'][0]['customdata']
-        if the_link is None:
-            return 'No Website Available'
-        else:
-            return html.A(the_link, href=the_link, target="_blank")
+        return html.A(the_link, href=the_link, target="_blank")
 # #--------------------------------------------------------------
 if __name__ == '__main__':
     app.run_server(debug=False)
